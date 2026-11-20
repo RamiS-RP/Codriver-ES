@@ -1,0 +1,5 @@
+The voice audio and the pacenote phrase list (voicepack, tools/es.json) are released under CC0 1.0 (public domain
+dedication): https://creativecommons.org/publicdomain/zero/1.0/
+They were generated with Piper (https://github.com/rhasspy/piper, MIT) and the es_ES-davefx-medium model, trained on a
+CC0 dataset (https://github.com/OHF-Voice/voice-datasets).
+tools/make_voicepack.py is released under the MIT license (c) 2026 RamiroRP.
