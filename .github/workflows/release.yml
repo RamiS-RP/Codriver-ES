@@ -1,0 +1,44 @@
+# Construye raidearth_voice_es.zip y lo publica como release (la "latest" que instala Add-ons de BeamNG.Earth).
+# Se lanza al subir a main un cambio de versión (mod_info/*/info.json) o a mano (Actions > release > Run workflow).
+name: release
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Version
+        id: ver
+        run: |
+          V=$(grep -oE '"version": *"[0-9.]+"' mod_info/*/info.json | head -1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          echo "tag=v$V" >> "$GITHUB_OUTPUT"
+          if git ls-remote --exit-code --tags origin "refs/tags/v$V" >/dev/null 2>&1; then echo "skip=true" >> "$GITHUB_OUTPUT"; else echo "skip=false" >> "$GITHUB_OUTPUT"; fi
+      - name: Package
+        if: steps.ver.outputs.skip != 'true'
+        run: sh package.sh raidearth_voice_es.zip
+      - name: Check layout (mod folders at the zip root)
+        if: steps.ver.outputs.skip != 'true'
+        run: |
+          unzip -l raidearth_voice_es.zip | grep -q " mod_info/"
+          N=$(unzip -l raidearth_voice_es.zip | grep -c "voicepacks/.*\.ogg$" || true)
+          echo "audio files: $N"
+          [ "$N" -gt 100 ]
+      - uses: softprops/action-gh-release@v2
+        if: steps.ver.outputs.skip != 'true'
+        with:
+          tag_name: ${{ steps.ver.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          name: Copiloto en español ${{ steps.ver.outputs.tag }}
+          files: raidearth_voice_es.zip
+          body: |
+            Copiloto completo en español de España para el modo rally de BeamNG y Raid.Earth: 181 notas con voz neuronal Piper (es_ES-davefx-medium, CC0).
+            Instálalo con Add-ons de BeamNG.Earth (o copia el zip sin descomprimir a `mods/`) y elige "Copiloto en español (Piper)" en Ajustes > Copiloto.
+          make_latest: true
