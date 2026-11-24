@@ -3,7 +3,7 @@
   "tagid": "RALLY_CODRIVER_ES",
   "icon": "icon.jpg",
   "author": "RamiroRP",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "tag_line": "Spanish co-driver voice for the rally mode · Voz de copiloto en español para el modo rally",
   "description": "[EN] A complete Spanish (Spain) co-driver for BeamNG's rally mode: all 181 pacenote audio files (turns, distances, crests, jumps, cautions...) spoken in Spanish with a neural voice (Piper, es_ES-davefx-medium, CC0 dataset). Install the zip in mods/ and pick 'Copiloto en español (Piper)' in the rally co-driver options. Works with the vanilla rally mode and with Raid.Earth.\n\n[ES] Copiloto completo en español (España) para el modo rally de BeamNG: las 181 notas de audio (curvas, distancias, cambios de rasante, saltos, precauciones...) habladas en español con una voz neuronal (Piper, es_ES-davefx-medium, dataset CC0). Instala el zip en mods/ y elige 'Copiloto en español (Piper)' en las opciones del copiloto del rally. Funciona con el rally del juego y con Raid.Earth."
 }
